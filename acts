@@ -67,6 +67,9 @@ if [ -f acts.conf ]; then
     . ./acts.conf
     # Loading from CWD is for development/debugging, so be noisy when we do
     log_message "load-config source=$(pwd)/acts.conf message=\"Loading config from CWD is intended for development use only\""
+elif [ -f ${HOME}/.acts.conf ]; then
+    . ${HOME}/.acts.conf
+    log_debug "load-config source=${HOME}/.acts.conf"
 elif [ -f /etc/acts.conf ]; then
     . /etc/acts.conf
     log_debug "load-config source=/etc/acts.conf"
@@ -85,7 +88,7 @@ prebackupscript="${prebackupscript=}"
 postbackupscript="${postbackupscript=}"
 tarsnap="${tarsnap:=tarsnap}"
 tarsnapbackupoptions="${tarsnapbackupoptions=}"
-lockfile="${lockfile=/var/run/acts}"
+lockfile="${lockfile=${HOME}/.acts.lock}"
 LANG="${LANG=en_US.UTF-8}"
 export LANG
 
